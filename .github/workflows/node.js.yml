@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - name: configue mocha
+        run: npm i -g mocha
       - name: Install npm pack & Build the program
         run: npm install
       - name: Test program code with unit tests
