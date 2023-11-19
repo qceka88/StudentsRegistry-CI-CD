@@ -1,4 +1,4 @@
-name: CI Workflow – "Student Registry" App
+name: CD Workflow – "Student Registry" App
 
 on:
   push:
@@ -13,8 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [ 18.x, ]
 
     steps:
       - name: Checkout program code
@@ -30,3 +29,12 @@ jobs:
         run: npm install
       - name: Test program code with unit tests
         run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_TOKEN }}
